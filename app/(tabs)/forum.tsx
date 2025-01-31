@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // Dummy forum data
 const forumPosts = [
@@ -58,10 +59,18 @@ const forumPosts = [
 ];
 
 export default function Forum() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#111827" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Community Forum</Text>
         <TouchableOpacity style={styles.newPostButton}>
           <Ionicons name="add" size={24} color="#fff" />
@@ -248,5 +257,13 @@ const styles = StyleSheet.create({
   interactionButtonText: {
     color: '#6b7280',
     fontSize: 14,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#f4f4f5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }); 

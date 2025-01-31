@@ -77,7 +77,10 @@ export default function Home() {
             <Text style={styles.gridItemSubtext}>1000+ Resources</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.gridItem}>
+          <TouchableOpacity 
+            style={styles.gridItem}
+            onPress={() => router.push('/govt-schemes')}
+          >
             <View style={[styles.iconContainer, { backgroundColor: '#f5f3ff' }]}>
               <Ionicons name="business-outline" size={24} color="#7c3aed" />
             </View>
@@ -85,7 +88,10 @@ export default function Home() {
             <Text style={styles.gridItemSubtext}>50+ Schemes</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.gridItem}>
+          <TouchableOpacity 
+            style={styles.gridItem}
+            onPress={() => router.push('/internships')}
+          >
             <View style={[styles.iconContainer, { backgroundColor: '#ecfdf5' }]}>
               <Ionicons name="briefcase-outline" size={24} color="#059669" />
             </View>

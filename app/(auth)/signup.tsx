@@ -12,7 +12,7 @@ import {
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Login() {
+export default function SignUp() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView 
@@ -29,10 +29,19 @@ export default function Login() {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Welcome Back! 👋</Text>
-          <Text style={styles.subtitle}>Please sign in to continue</Text>
+          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.subtitle}>Sign up to get started!</Text>
 
           <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <Ionicons name="person-outline" size={20} color="#6b7280" />
+              <TextInput
+                placeholder="Full Name"
+                style={styles.input}
+                autoCapitalize="words"
+              />
+            </View>
+
             <View style={styles.inputContainer}>
               <Ionicons name="mail-outline" size={20} color="#6b7280" />
               <TextInput
@@ -55,20 +64,25 @@ export default function Login() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
+            <View style={styles.termsContainer}>
+              <TouchableOpacity style={styles.checkbox}>
+                <Ionicons name="checkmark" size={16} color="#fff" />
+              </TouchableOpacity>
+              <Text style={styles.termsText}>
+                I agree to the <Text style={styles.termsLink}>Terms</Text> and <Text style={styles.termsLink}>Privacy Policy</Text>
+              </Text>
+            </View>
 
             <TouchableOpacity 
-              style={styles.loginButton}
+              style={styles.signupButton}
               onPress={() => router.push('/(tabs)')}
             >
-              <Text style={styles.loginButtonText}>Sign In</Text>
+              <Text style={styles.signupButtonText}>Create Account</Text>
             </TouchableOpacity>
 
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>or continue with</Text>
+              <Text style={styles.dividerText}>or sign up with</Text>
               <View style={styles.dividerLine} />
             </View>
 
@@ -84,9 +98,9 @@ export default function Login() {
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Don't have an account? </Text>
-          <TouchableOpacity onPress={() => router.push('/signup')}>
-            <Text style={styles.footerLink}>Sign Up</Text>
+          <Text style={styles.footerText}>Already have an account? </Text>
+          <TouchableOpacity onPress={() => router.push('/login')}>
+            <Text style={styles.footerLink}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -144,22 +158,36 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#111827',
   },
-  forgotPassword: {
-    alignSelf: 'flex-end',
+  termsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
-  forgotPasswordText: {
-    color: '#6366f1',
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    backgroundColor: '#6366f1',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  termsText: {
+    color: '#6b7280',
     fontSize: 14,
+    flex: 1,
+  },
+  termsLink: {
+    color: '#6366f1',
     fontWeight: '500',
   },
-  loginButton: {
+  signupButton: {
     backgroundColor: '#6366f1',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 8,
   },
-  loginButtonText: {
+  signupButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',

@@ -8,59 +8,55 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
-// Dummy scholarships data
-const scholarships = [
+// Dummy schemes data
+const schemes = [
   {
     id: '1',
-    title: 'Fulbright Scholarship 2024',
-    organization: 'Fulbright Commission',
-    amount: '$50,000',
+    title: 'Prime Minister Research Fellowship',
+    ministry: 'Ministry of Education',
+    amount: 'Up to ₹80,000/month',
     deadline: 'May 30, 2024',
-    daysLeft: 45,
-    requirements: ['GPA 3.5+', 'Bachelor\'s Degree', 'IELTS 7.0'],
-    category: 'International',
+    eligibility: [
+      'GATE/NET qualified',
+      'CGPA > 8.0',
+      'Indian citizen',
+    ],
+    category: 'Research',
     isBookmarked: true,
   },
   {
     id: '2',
-    title: 'STEM Excellence Award',
-    organization: 'National Science Foundation',
-    amount: '$25,000',
-    deadline: 'April 15, 2024',
-    daysLeft: 30,
-    requirements: ['GPA 3.0+', 'STEM Major', 'Research Experience'],
-    category: 'Academic',
+    title: 'National Overseas Scholarship',
+    ministry: 'Ministry of Social Justice',
+    amount: 'Full funding',
+    deadline: 'June 15, 2024',
+    eligibility: [
+      'Family income < 8L',
+      'Age below 35',
+      'For foreign studies',
+    ],
+    category: 'Education',
     isBookmarked: false,
   },
   {
     id: '3',
-    title: 'Women in Technology Grant',
-    organization: 'Tech Foundation',
-    amount: '$15,000',
-    deadline: 'June 1, 2024',
-    daysLeft: 47,
-    requirements: ['Female Students', 'Computer Science Major'],
-    category: 'Diversity',
-    isBookmarked: true,
-  },
-  {
-    id: '4',
-    title: 'Global Leadership Program',
-    organization: 'International Education Institute',
-    amount: '$35,000',
-    deadline: 'May 15, 2024',
-    daysLeft: 30,
-    requirements: ['Leadership Experience', 'Community Service'],
-    category: 'Leadership',
+    title: 'Credit Guarantee Fund Scheme',
+    ministry: 'Ministry of MSME',
+    amount: 'Up to ₹2 Cr',
+    deadline: 'Ongoing',
+    eligibility: [
+      'Start-up age < 5 years',
+      'Valid business plan',
+      'Indian registration',
+    ],
+    category: 'Business',
     isBookmarked: false,
   },
 ];
 
-export default function Scholarships() {
-  const router = useRouter();
-
+export default function GovtSchemes() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -71,7 +67,7 @@ export default function Scholarships() {
         >
           <Ionicons name="arrow-back" size={24} color="#111827" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Scholarships</Text>
+        <Text style={styles.headerTitle}>Government Schemes</Text>
         <TouchableOpacity style={styles.filterButton}>
           <Ionicons name="filter" size={24} color="#6366f1" />
         </TouchableOpacity>
@@ -81,51 +77,53 @@ export default function Scholarships() {
       <View style={styles.searchBarContainer}>
         <Ionicons name="search-outline" size={20} color="#666" />
         <TouchableOpacity style={styles.searchBar} activeOpacity={0.7}>
-          <Text style={styles.searchText}>Search scholarships...</Text>
+          <Text style={styles.searchText}>Search schemes...</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Scholarships List */}
-      <ScrollView style={styles.scholarshipsContainer}>
-        {scholarships.map((scholarship) => (
-          <TouchableOpacity key={scholarship.id} style={styles.scholarshipCard}>
+      {/* Schemes List */}
+      <ScrollView style={styles.schemesContainer}>
+        {schemes.map((scheme) => (
+          <TouchableOpacity key={scheme.id} style={styles.schemeCard}>
             <View style={styles.cardHeader}>
               <View style={styles.categoryContainer}>
-                <Text style={styles.categoryText}>{scholarship.category}</Text>
+                <Text style={styles.categoryText}>{scheme.category}</Text>
               </View>
               <TouchableOpacity>
                 <Ionicons
-                  name={scholarship.isBookmarked ? "bookmark" : "bookmark-outline"}
+                  name={scheme.isBookmarked ? "bookmark" : "bookmark-outline"}
                   size={24}
                   color="#6366f1"
                 />
               </TouchableOpacity>
             </View>
-            
-            <Text style={styles.scholarshipTitle}>{scholarship.title}</Text>
-            <Text style={styles.organizationName}>{scholarship.organization}</Text>
-            
+
+            <Text style={styles.schemeTitle}>{scheme.title}</Text>
+            <Text style={styles.ministryName}>{scheme.ministry}</Text>
+
             <View style={styles.detailsContainer}>
               <View style={styles.detail}>
                 <Ionicons name="cash-outline" size={16} color="#6b7280" />
-                <Text style={styles.detailText}>{scholarship.amount}</Text>
+                <Text style={styles.detailText}>{scheme.amount}</Text>
               </View>
               <View style={styles.detail}>
-                <Ionicons name="time-outline" size={16} color="#6b7280" />
-                <Text style={styles.detailText}>{scholarship.deadline}</Text>
+                <Ionicons name="calendar-outline" size={16} color="#6b7280" />
+                <Text style={styles.detailText}>Deadline: {scheme.deadline}</Text>
               </View>
             </View>
 
-            <View style={styles.requirementsContainer}>
-              {scholarship.requirements.map((req, index) => (
-                <View key={index} style={styles.requirementChip}>
-                  <Text style={styles.requirementText}>{req}</Text>
+            <Text style={styles.eligibilityTitle}>Key Eligibility:</Text>
+            <View style={styles.eligibilityContainer}>
+              {scheme.eligibility.map((item, index) => (
+                <View key={index} style={styles.eligibilityItem}>
+                  <Ionicons name="checkmark-circle" size={16} color="#6366f1" />
+                  <Text style={styles.eligibilityText}>{item}</Text>
                 </View>
               ))}
             </View>
 
             <TouchableOpacity style={styles.applyButton}>
-              <Text style={styles.applyButtonText}>Apply Now</Text>
+              <Text style={styles.applyButtonText}>View Details</Text>
               <Ionicons name="arrow-forward" size={16} color="#fff" />
             </TouchableOpacity>
           </TouchableOpacity>
@@ -142,12 +140,13 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
     paddingTop: 60,
+    gap: 12,
   },
   headerTitle: {
+    flex: 1,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#111827',
@@ -173,12 +172,12 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontSize: 16,
   },
-  scholarshipsContainer: {
+  schemesContainer: {
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 100,
   },
-  scholarshipCard: {
+  schemeCard: {
     backgroundColor: '#ffffff',
     padding: 16,
     borderRadius: 16,
@@ -209,20 +208,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
   },
-  scholarshipTitle: {
+  schemeTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: '#111827',
     marginBottom: 4,
   },
-  organizationName: {
+  ministryName: {
     fontSize: 14,
     color: '#6b7280',
     marginBottom: 12,
   },
   detailsContainer: {
     flexDirection: 'row',
-    gap: 16,
+    justifyContent: 'space-between',
     marginBottom: 12,
   },
   detail: {
@@ -234,21 +233,24 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontSize: 14,
   },
-  requirementsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  eligibilityTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#111827',
+    marginBottom: 8,
+  },
+  eligibilityContainer: {
     gap: 8,
     marginBottom: 16,
   },
-  requirementChip: {
-    backgroundColor: '#f4f4f5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+  eligibilityItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
-  requirementText: {
-    color: '#6b7280',
-    fontSize: 12,
+  eligibilityText: {
+    color: '#4b5563',
+    fontSize: 14,
   },
   applyButton: {
     backgroundColor: '#6366f1',

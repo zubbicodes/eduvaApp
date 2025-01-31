@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // Dummy data for study materials
 const studyMaterials = [
@@ -50,10 +51,18 @@ const studyMaterials = [
 ];
 
 export default function Study() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#111827" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Study Materials</Text>
         <TouchableOpacity style={styles.filterButton}>
           <Ionicons name="filter" size={24} color="#6366f1" />
@@ -67,32 +76,6 @@ export default function Study() {
           <Text style={styles.searchText}>Search study materials...</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Subject Filters */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.filtersContainer}
-      >
-        {['All', 'Mathematics', 'Physics', 'Chemistry', 'Biology'].map((subject) => (
-          <TouchableOpacity
-            key={subject}
-            style={[
-              styles.filterChip,
-              subject === 'All' && styles.activeFilterChip,
-            ]}
-          >
-            <Text
-              style={[
-                styles.filterChipText,
-                subject === 'All' && styles.activeFilterChipText,
-              ]}
-            >
-              {subject}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
 
       {/* Study Materials List */}
       <ScrollView style={styles.materialsContainer}>
@@ -127,12 +110,13 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
     paddingTop: 60,
+    gap: 12,
   },
   headerTitle: {
+    flex: 1,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#111827',
@@ -157,32 +141,6 @@ const styles = StyleSheet.create({
   searchText: {
     color: '#6b7280',
     fontSize: 16,
-  },
-  filtersContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 16,
-    height: 36,
-  },
-  filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    backgroundColor: '#f4f4f5',
-    borderRadius: 20,
-    marginRight: 8,
-    height: 32,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  activeFilterChip: {
-    backgroundColor: '#6366f1',
-  },
-  filterChipText: {
-    color: '#6b7280',
-    fontWeight: '500',
-    fontSize: 13,
-  },
-  activeFilterChipText: {
-    color: '#ffffff',
   },
   materialsContainer: {
     flex: 1,
@@ -243,5 +201,13 @@ const styles = StyleSheet.create({
   materialDownloads: {
     fontSize: 12,
     color: '#6b7280',
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#f4f4f5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }); 

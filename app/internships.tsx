@@ -6,61 +6,52 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
-// Dummy scholarships data
-const scholarships = [
+// Dummy internships data
+const internships = [
   {
     id: '1',
-    title: 'Fulbright Scholarship 2024',
-    organization: 'Fulbright Commission',
-    amount: '$50,000',
-    deadline: 'May 30, 2024',
-    daysLeft: 45,
-    requirements: ['GPA 3.5+', 'Bachelor\'s Degree', 'IELTS 7.0'],
-    category: 'International',
-    isBookmarked: true,
-  },
-  {
-    id: '2',
-    title: 'STEM Excellence Award',
-    organization: 'National Science Foundation',
-    amount: '$25,000',
-    deadline: 'April 15, 2024',
-    daysLeft: 30,
-    requirements: ['GPA 3.0+', 'STEM Major', 'Research Experience'],
-    category: 'Academic',
+    title: 'Software Development Intern',
+    company: 'Google',
+    location: 'Remote',
+    duration: '3 months',
+    stipend: '₹50,000/month',
+    deadline: 'Apr 30, 2024',
+    type: 'Technical',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png',
     isBookmarked: false,
   },
   {
-    id: '3',
-    title: 'Women in Technology Grant',
-    organization: 'Tech Foundation',
-    amount: '$15,000',
-    deadline: 'June 1, 2024',
-    daysLeft: 47,
-    requirements: ['Female Students', 'Computer Science Major'],
-    category: 'Diversity',
+    id: '2',
+    title: 'Data Science Intern',
+    company: 'Microsoft',
+    location: 'Hybrid',
+    duration: '6 months',
+    stipend: '₹45,000/month',
+    deadline: 'May 15, 2024',
+    type: 'Technical',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png',
     isBookmarked: true,
   },
   {
-    id: '4',
-    title: 'Global Leadership Program',
-    organization: 'International Education Institute',
-    amount: '$35,000',
-    deadline: 'May 15, 2024',
-    daysLeft: 30,
-    requirements: ['Leadership Experience', 'Community Service'],
-    category: 'Leadership',
+    id: '3',
+    title: 'Marketing Intern',
+    company: 'Amazon',
+    location: 'On-site',
+    duration: '4 months',
+    stipend: '₹40,000/month',
+    deadline: 'May 1, 2024',
+    type: 'Non-Technical',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png',
     isBookmarked: false,
   },
 ];
 
-export default function Scholarships() {
-  const router = useRouter();
-
+export default function Internships() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -71,7 +62,7 @@ export default function Scholarships() {
         >
           <Ionicons name="arrow-back" size={24} color="#111827" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Scholarships</Text>
+        <Text style={styles.headerTitle}>Internships</Text>
         <TouchableOpacity style={styles.filterButton}>
           <Ionicons name="filter" size={24} color="#6366f1" />
         </TouchableOpacity>
@@ -81,47 +72,48 @@ export default function Scholarships() {
       <View style={styles.searchBarContainer}>
         <Ionicons name="search-outline" size={20} color="#666" />
         <TouchableOpacity style={styles.searchBar} activeOpacity={0.7}>
-          <Text style={styles.searchText}>Search scholarships...</Text>
+          <Text style={styles.searchText}>Search internships...</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Scholarships List */}
-      <ScrollView style={styles.scholarshipsContainer}>
-        {scholarships.map((scholarship) => (
-          <TouchableOpacity key={scholarship.id} style={styles.scholarshipCard}>
+      {/* Internships List */}
+      <ScrollView style={styles.internshipsContainer}>
+        {internships.map((internship) => (
+          <TouchableOpacity key={internship.id} style={styles.internshipCard}>
             <View style={styles.cardHeader}>
-              <View style={styles.categoryContainer}>
-                <Text style={styles.categoryText}>{scholarship.category}</Text>
-              </View>
+              <Image source={{ uri: internship.logo }} style={styles.companyLogo} />
               <TouchableOpacity>
                 <Ionicons
-                  name={scholarship.isBookmarked ? "bookmark" : "bookmark-outline"}
+                  name={internship.isBookmarked ? "bookmark" : "bookmark-outline"}
                   size={24}
                   color="#6366f1"
                 />
               </TouchableOpacity>
             </View>
-            
-            <Text style={styles.scholarshipTitle}>{scholarship.title}</Text>
-            <Text style={styles.organizationName}>{scholarship.organization}</Text>
-            
+
+            <Text style={styles.internshipTitle}>{internship.title}</Text>
+            <Text style={styles.companyName}>{internship.company}</Text>
+
             <View style={styles.detailsContainer}>
               <View style={styles.detail}>
-                <Ionicons name="cash-outline" size={16} color="#6b7280" />
-                <Text style={styles.detailText}>{scholarship.amount}</Text>
+                <Ionicons name="location-outline" size={16} color="#6b7280" />
+                <Text style={styles.detailText}>{internship.location}</Text>
               </View>
               <View style={styles.detail}>
                 <Ionicons name="time-outline" size={16} color="#6b7280" />
-                <Text style={styles.detailText}>{scholarship.deadline}</Text>
+                <Text style={styles.detailText}>{internship.duration}</Text>
               </View>
             </View>
 
-            <View style={styles.requirementsContainer}>
-              {scholarship.requirements.map((req, index) => (
-                <View key={index} style={styles.requirementChip}>
-                  <Text style={styles.requirementText}>{req}</Text>
-                </View>
-              ))}
+            <View style={styles.detailsContainer}>
+              <View style={styles.detail}>
+                <Ionicons name="cash-outline" size={16} color="#6b7280" />
+                <Text style={styles.detailText}>{internship.stipend}</Text>
+              </View>
+              <View style={styles.detail}>
+                <Ionicons name="calendar-outline" size={16} color="#6b7280" />
+                <Text style={styles.detailText}>Deadline: {internship.deadline}</Text>
+              </View>
             </View>
 
             <TouchableOpacity style={styles.applyButton}>
@@ -173,12 +165,12 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontSize: 16,
   },
-  scholarshipsContainer: {
+  internshipsContainer: {
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 100,
   },
-  scholarshipCard: {
+  internshipCard: {
     backgroundColor: '#ffffff',
     padding: 16,
     borderRadius: 16,
@@ -198,31 +190,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  categoryContainer: {
-    backgroundColor: '#ede9fe',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 6,
+  companyLogo: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: '#f4f4f5',
   },
-  categoryText: {
-    color: '#6366f1',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  scholarshipTitle: {
+  internshipTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: '#111827',
     marginBottom: 4,
   },
-  organizationName: {
+  companyName: {
     fontSize: 14,
     color: '#6b7280',
     marginBottom: 12,
   },
   detailsContainer: {
     flexDirection: 'row',
-    gap: 16,
+    justifyContent: 'space-between',
     marginBottom: 12,
   },
   detail: {
@@ -234,22 +221,6 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontSize: 14,
   },
-  requirementsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginBottom: 16,
-  },
-  requirementChip: {
-    backgroundColor: '#f4f4f5',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-  },
-  requirementText: {
-    color: '#6b7280',
-    fontSize: 12,
-  },
   applyButton: {
     backgroundColor: '#6366f1',
     flexDirection: 'row',
@@ -258,6 +229,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     gap: 8,
+    marginTop: 4,
   },
   applyButtonText: {
     color: '#fff',
