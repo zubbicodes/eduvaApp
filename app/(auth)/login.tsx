@@ -29,7 +29,7 @@ export default function Login() {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Welcome Back! 👋</Text>
+          <Text style={styles.title}>welcome to eduva! 👋</Text>
           <Text style={styles.subtitle}>Please sign in to continue</Text>
 
           <View style={styles.form}>

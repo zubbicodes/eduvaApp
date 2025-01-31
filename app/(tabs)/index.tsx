@@ -21,7 +21,7 @@ export default function Home() {
         {/* Header Section */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Hello, Student! 👋</Text>
+            <Text style={styles.greeting}>welcome to eduva! 👋</Text>
             <Text style={styles.subGreeting}>What would you like to explore today?</Text>
           </View>
           <TouchableOpacity 

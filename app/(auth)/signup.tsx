@@ -29,7 +29,7 @@ export default function SignUp() {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.title}>join eduva</Text>
           <Text style={styles.subtitle}>Sign up to get started!</Text>
 
           <View style={styles.form}>
