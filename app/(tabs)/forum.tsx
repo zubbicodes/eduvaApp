@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -14,20 +15,23 @@ const forumPosts = [
   {
     id: '1',
     title: 'Tips for Fulbright Scholarship Application',
+    body: 'Here are some key tips that helped me secure the Fulbright scholarship. First, start your application early - at least 3 months before the deadline. Focus on your statement of purpose and get it reviewed by multiple people...',
     author: 'Sarah M.',
     category: 'Scholarships',
     replies: 23,
-    likes: 45,
+    upvotes: 45,
     timeAgo: '2h ago',
     isVerified: true,
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000', // Example image URL
   },
   {
     id: '2',
     title: 'Study Group for Advanced Mathematics',
+    body: 'Looking to form a study group for Advanced Calculus and Linear Algebra. We can meet twice a week online to solve problems and prepare for upcoming exams. Anyone interested?',
     author: 'John D.',
     category: 'Study Groups',
     replies: 15,
-    likes: 32,
+    upvotes: 32,
     timeAgo: '5h ago',
     isVerified: false,
   },
@@ -37,7 +41,7 @@ const forumPosts = [
     author: 'Emma W.',
     category: 'Admissions',
     replies: 56,
-    likes: 89,
+    upvotes: 89,
     timeAgo: '1d ago',
     isVerified: true,
   },
@@ -47,7 +51,7 @@ const forumPosts = [
     author: 'Mike R.',
     category: 'Homework Help',
     replies: 8,
-    likes: 12,
+    upvotes: 12,
     timeAgo: '3h ago',
     isVerified: false,
   },
@@ -78,25 +82,43 @@ export default function Forum() {
               </TouchableOpacity>
             </View>
             <Text style={styles.postTitle}>{post.title}</Text>
-            <View style={styles.postFooter}>
-              <View style={styles.authorSection}>
-                <Text style={styles.authorName}>
-                  {post.author}
-                  {post.isVerified && (
-                    <Ionicons name="checkmark-circle" size={14} color="#6366f1" />
-                  )}
-                </Text>
+            <Text style={styles.postBody} numberOfLines={3}>
+              {post.body}
+            </Text>
+            {post.image && (
+              <View style={styles.imageContainer}>
+                <Image
+                  source={{ uri: post.image }}
+                  style={styles.postImage}
+                  resizeMode="cover"
+                />
               </View>
-              <View style={styles.statsSection}>
-                <View style={styles.stat}>
-                  <Ionicons name="chatbubble-outline" size={14} color="#6b7280" />
-                  <Text style={styles.statText}>{post.replies}</Text>
-                </View>
-                <View style={styles.stat}>
-                  <Ionicons name="heart-outline" size={14} color="#6b7280" />
-                  <Text style={styles.statText}>{post.likes}</Text>
-                </View>
+            )}
+            <View style={styles.authorSection}>
+              <Text style={styles.authorName}>
+                {post.author}
+                {post.isVerified && (
+                  <Ionicons name="checkmark-circle" size={14} color="#6366f1" />
+                )}
+              </Text>
+            </View>
+            <View style={styles.interactionButtons}>
+              <View style={styles.voteButtons}>
+                <TouchableOpacity style={styles.interactionButton}>
+                  <Ionicons name="chevron-up" size={24} color="#6b7280" />
+                  <Text style={styles.interactionButtonText}>{post.upvotes}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.interactionButton}>
+                  <Ionicons name="chevron-down" size={24} color="#6b7280" />
+                </TouchableOpacity>
               </View>
+              <TouchableOpacity style={styles.interactionButton}>
+                <Ionicons name="chatbubble-outline" size={20} color="#6b7280" />
+                <Text style={styles.interactionButtonText}>{post.replies}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.interactionButton}>
+                <Ionicons name="share-social-outline" size={20} color="#6b7280" />
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         ))}
@@ -140,8 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 16,
     borderRadius: 12,
-    marginBottom: 8,
-    marginTop: 0,
+    marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -179,10 +200,22 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: 12,
   },
-  postFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  postBody: {
+    fontSize: 14,
+    color: '#4b5563',
+    lineHeight: 20,
+    marginBottom: 12,
+  },
+  imageContainer: {
+    marginBottom: 12,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: '#f4f4f5',
+  },
+  postImage: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#f4f4f5',
   },
   authorSection: {
     flexDirection: 'row',
@@ -193,17 +226,27 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#4b5563',
   },
-  statsSection: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  stat: {
+  voteButtons: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },
-  statText: {
-    fontSize: 12,
+  interactionButtons: {
+    flexDirection: 'row',
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#f4f4f5',
+    gap: 20,
+  },
+  interactionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 4,
+  },
+  interactionButtonText: {
     color: '#6b7280',
+    fontSize: 14,
   },
 }); 
